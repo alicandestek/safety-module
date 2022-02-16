@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
+
+body {
+  font-family: "Inter", sans-serif;
+}
+
+.primary-color {
+  color: #d85111;
+}
+
+.main-background {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #d85111 100%);
+  min-height: 50vh;
+}
+
+.footer-background {
+  background: linear-gradient(
+    180deg,
+    rgba(193, 193, 193, 0.1) 0%,
+    rgba(193, 193, 193, 0) 100%
+  );
+}
