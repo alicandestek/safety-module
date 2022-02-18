@@ -2,8 +2,8 @@ import React from "react";
 
 function Footer() {
   return (
-    <div className="relative ">
-      <div className="container mx-auto flex justify-between absolute inset-x-0 bottom-0 p-4 items-center  ">
+    <div className="relative">
+      <div className="container mx-auto flex justify-between absolute inset-x-0 bottom-0 p-6 items-center   ">
         <div>
           <p>
             Visit <a href="http://">Hyphen</a>

@@ -3,7 +3,9 @@ import React from "react";
 function WalletConnect() {
   return (
     <div>
-      <button className="bg-black px-4 py-2">Connect</button>
+      <button className="btn-wallet px-4 py-1 text-sm text-white">
+        Connect
+      </button>
     </div>
   );
 }
