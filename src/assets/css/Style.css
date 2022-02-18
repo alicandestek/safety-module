@@ -8,6 +8,10 @@ body {
   color: #d85111;
 }
 
+.secondary-color {
+  color: #c1c1c1;
+}
+
 .main-background {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #d85111 100%);
   min-height: 50vh;
@@ -16,7 +20,24 @@ body {
 .footer-background {
   background: linear-gradient(
     180deg,
-    rgba(193, 193, 193, 0.1) 0%,
+    rgba(193, 193, 193, 0.5) 28%,
     rgba(193, 193, 193, 0) 100%
   );
+}
+
+.btn-wallet {
+  background: #d85111;
+  border-radius: 10px;
+}
+
+.btn-claim {
+  background: rgba(255, 179, 0, 0.5);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 179, 0, 0.5);
+}
+
+.input-bg {
+  background: rgba(216, 81, 17, 0.1);
+  border-radius: 10px;
+  border: 1px solid rgba(216, 81, 17, 0.1);
 }
