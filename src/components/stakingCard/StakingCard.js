@@ -4,7 +4,7 @@ import ClaimIcon from "../../assets/images/claim.svg";
 
 function StakingCard() {
   return (
-    <div className="bg-white rounded-xl bordered p-12 my-12">
+    <div className="staking-card p-12">
       <div className="flex justify-between">
         <p>Staking</p>
         <a href="#" className="">

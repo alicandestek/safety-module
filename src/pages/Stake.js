@@ -1,6 +1,7 @@
 import React from "react";
 import Layout from "../components/layout/Layout";
 import StakingCard from "../components/stakingCard/StakingCard";
+import SummaryCard from "../components/summary/SummaryCard";
 
 function Stake() {
   return (
@@ -19,11 +20,13 @@ function Stake() {
             the protocol.
           </p>
         </div>
-        <div className="grid grid-cols-6 items-center mx-56 gap-4">
+        <div className="grid grid-cols-6 mx-56 gap-4 my-12">
           <div className="col-span-4">
             <StakingCard />
           </div>
-          <div>2</div>
+          <div>
+            <SummaryCard />
+          </div>
         </div>
       </div>
     </Layout>
