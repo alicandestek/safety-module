@@ -12,9 +12,13 @@ body {
   color: #c1c1c1;
 }
 
+.third-color {
+  color: #545757;
+}
+
 .main-background {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #d85111 100%);
-  min-height: 50vh;
+  height: 500px;
 }
 
 .footer-background {
@@ -40,4 +44,24 @@ body {
   background: rgba(216, 81, 17, 0.1);
   border-radius: 10px;
   border: 1px solid rgba(216, 81, 17, 0.1);
+}
+
+.staking-card {
+  background: #ffffff;
+  border: 2px solid #ffffff;
+  box-sizing: border-box;
+  border-radius: 40px;
+  height: 100%;
+}
+
+.summary-card {
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid #ffffff;
+  box-sizing: border-box;
+  backdrop-filter: blur(100px);
+  /* Note: backdrop-filter has minimal browser support */
+
+  border-radius: 40px;
+  width: 330px;
+  height: 100%;
 }

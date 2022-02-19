@@ -9,8 +9,8 @@ class layout extends Component {
     return (
       <div className="">
         <Header />
-        <div className="pb-12">{this.props.children}</div>
-        <Footer />
+        <div className="">{this.props.children}</div>
+        {/* <Footer /> */}
       </div>
     );
   }
