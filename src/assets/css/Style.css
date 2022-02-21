@@ -1,7 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
 
-body {
-  font-family: "Inter", sans-serif;
+h1,
+h2,
+h3,
+h4,
+p,
+span,
+button {
+  font-family: "Inter";
 }
 
 .primary-color {
@@ -116,6 +123,7 @@ body {
 
 input {
   padding: 12px 20px;
+  font-family: "Roboto Mono", monospace;
 }
 
 input[type="number"]::-webkit-inner-spin-button,

@@ -106,7 +106,7 @@ function StakingCard() {
           <div>
             <input
               type="number"
-              className="input-bg py-3 w-full placeholder:pl-6 placeholder:text-lg mt-1"
+              className="input-bg py-3 w-full placeholder:text-lg mt-1"
               placeholder="0"
             />
           </div>
