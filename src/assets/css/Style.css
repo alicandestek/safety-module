@@ -32,12 +32,29 @@ body {
 .btn-wallet {
   background: #d85111;
   border-radius: 10px;
+  font-weight: 600;
 }
 
 .btn-claim {
   background: rgba(255, 179, 0, 0.5);
   border-radius: 10px;
   border: 1px solid rgba(255, 179, 0, 0.5);
+}
+
+.btn-cooldown {
+  background: #e5e5e5;
+  border-radius: 10px;
+  color: #c1c1c1;
+  font-weight: 600;
+}
+
+.btn-unlock {
+  background: #ffffff;
+  border: 2px solid #d85111;
+  font-weight: 600;
+  box-sizing: border-box;
+  border-radius: 10px;
+  color: #d85111;
 }
 
 .input-bg {
@@ -64,4 +81,38 @@ body {
   border-radius: 40px;
   width: 330px;
   height: 100%;
+}
+
+.menu a {
+  position: relative;
+  padding: 0px 10px;
+  transition: all 0.6s ease;
+}
+
+.menu a:hover {
+  color: rgba(216, 81, 17, 1);
+}
+
+.active {
+  color: #d85111;
+  font-weight: 600;
+}
+.active:before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 6px;
+  background-color: #d85111;
+  border-radius: 0px 0px 10px 10px;
+  top: -16px;
+  left: 0;
+}
+
+.inactive {
+  color: rgba(216, 81, 17, 0.25);
+  font-weight: 600;
+}
+
+input {
+  padding: 12px 20px;
 }
