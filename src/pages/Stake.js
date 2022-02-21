@@ -24,7 +24,7 @@ function Stake() {
           <div className="col-span-4">
             <StakingCard />
           </div>
-          <div>
+          <div className="mt-8">
             <SummaryCard />
           </div>
         </div>

@@ -1,9 +1,19 @@
-import React, { useState } from "react";
-import WalletIcon from "../../assets/images/wallet.svg";
+import React, { useState, useEffect } from "react";
 import ClaimIcon from "../../assets/images/claim.svg";
+import ProgressBar from "../progressBar/ProgressBar";
 
-function StakingCard() {
-  const [ethchange, setEthhchnage] = useState(false);
+function UnstakingCard() {
+  const [tokenchange, setTokenChange] = useState(true);
+
+  const [completed, setCompleted] = useState(10);
+
+  useEffect(() => {
+    setCompleted();
+  }, []);
+
+  const handleTokenChange = () => {
+    setTokenChange(false);
+  };
   return (
     <div>
       <div className="flex justify-center">
@@ -30,8 +40,9 @@ function StakingCard() {
                   Amount
                 </lable>
                 <p className="flex text-xs items-center secondary-color">
-                  <img src={WalletIcon} className="h-4 pr-1" alt="" />
-                  <span className="font-semibold"> -- BBPT</span>
+                  <span className="font-semibold uppercase">
+                    45.9 BBPT staked
+                  </span>
                 </p>
               </div>
               <input
@@ -42,31 +53,31 @@ function StakingCard() {
             </div>
             <div>
               <lable className="uppercase text-xs px-2 pb-2 font-semibold">
-                Currently Staked BBPT
+                Your Pool Share
               </lable>
               <input
                 type="number"
-                className="input-bg py-3 w-full mt-1  placeholder:text-lg"
+                className="input-bg py-3 w-full mt-1 placeholder:text-lg"
                 placeholder="0"
               />
             </div>
           </div>
-          {ethchange ? (
-            <div>
-              <button className="btn-wallet py-4 px-12 w-full text-white">
-                Switch To Ethereum
-              </button>
-            </div>
-          ) : (
-            <div className="flex gap-6">
-              <button className="btn-unlock py-4 px-12 w-full text-white">
-                Unlock BBPT
-              </button>
-              <button className="btn-wallet py-4 px-12 w-full text-white">
-                Confirm Deposit
-              </button>
-            </div>
-          )}
+          <div className="flex gap-6">
+            <button className="btn-cooldown py-4 px-12 w-full text-white">
+              Cooldown Activated
+            </button>
+            <button className="btn-wallet py-4 px-12 w-full text-white">
+              Confirm Withdrawal
+            </button>
+          </div>
+          <div className="my-4">
+            <ProgressBar bgcolor={"#00D28F"} completed={completed} />
+          </div>
+          <div>
+            <p className="secondary-color text-sm font-semibold uppercase third-color">
+              3 days to unlock
+            </p>
+          </div>
         </div>
 
         <div className="flex justify-between my-6">
@@ -103,4 +114,4 @@ function StakingCard() {
   );
 }
 
-export default StakingCard;
+export default UnstakingCard;
