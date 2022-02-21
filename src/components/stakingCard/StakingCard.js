@@ -4,12 +4,38 @@ import ClaimIcon from "../../assets/images/claim.svg";
 
 function StakingCard() {
   const [ethchange, setEthhchnage] = useState(false);
+  const [selecttoken, setSelecttoken] = useState(true);
+
+  const handleTokenChange = (value) => {
+    setSelecttoken(value);
+  };
   return (
     <div>
       <div className="flex justify-center">
-        <div className="flex gap-20 border-2 border-black bg-white rounded-full items-center px-4">
-          <p>BICO</p>
-          <p className="bg-red-500 py-3 px-8 m-2 rounded-full">BBPT</p>
+        <div className="flex gap-4 border-2 border-black bg-white rounded-full items-center px-1">
+          <p
+            className={
+              selecttoken
+                ? "bg-[#545757] text-white py-3 px-6 my-1 rounded-full cursor-pointer text-sm font-semibold"
+                : "py-3 px-6 cursor-pointer text-sm font-semibold"
+            }
+            onClick={() => handleTokenChange(true)}
+          >
+            BICO
+          </p>
+          <p
+            className={
+              selecttoken === false
+                ? "bg-[#545757] text-white py-3 px-6 my-1 rounded-full cursor-pointer text-sm font-semibold"
+                : "py-3 px-6 cursor-pointer text-sm font-semibold"
+            }
+            onClick={() => {
+              handleTokenChange(false);
+              console.log("hello");
+            }}
+          >
+            BBPT
+          </p>
         </div>
       </div>
       <div className="staking-card p-12 -mt-8">
@@ -24,14 +50,14 @@ function StakingCard() {
             </a>
           </div>
           <div className="grid grid-cols-2 my-6 gap-6 items-center">
-            <div>
+            <div className="relative">
               <div className="flex justify-between px-2 pb-2 items-center">
-                <lable className="text-xs uppercase font-semibold">
-                  Amount
-                </lable>
+                <p className="text-xs uppercase font-semibold">Amount</p>
                 <p className="flex text-xs items-center secondary-color">
                   <img src={WalletIcon} className="h-4 pr-1" alt="" />
-                  <span className="font-semibold"> -- BBPT</span>
+                  <span className="font-semibold">
+                    {selecttoken ? "-- BICO" : "-- BBPT"}
+                  </span>
                 </p>
               </div>
               <input
@@ -39,11 +65,12 @@ function StakingCard() {
                 className="bg-white border rounded-xl border-slate-400 py-3 w-full placeholder:text-lg"
                 placeholder="0"
               />
+              <button className="btn-tiny">Max</button>
             </div>
             <div>
-              <lable className="uppercase text-xs px-2 pb-2 font-semibold">
-                Currently Staked BBPT
-              </lable>
+              <p className="uppercase text-xs px-2 pb-2 font-semibold">
+                Currently Staked {selecttoken ? "BICO" : "BBPT"}
+              </p>
               <input
                 type="number"
                 className="input-bg py-3 w-full mt-1  placeholder:text-lg"
@@ -60,7 +87,7 @@ function StakingCard() {
           ) : (
             <div className="flex gap-6">
               <button className="btn-unlock py-4 px-12 w-full text-white">
-                Unlock BBPT
+                Unlock {selecttoken ? "BICO" : "BBPT"}
               </button>
               <button className="btn-wallet py-4 px-12 w-full text-white">
                 Confirm Deposit

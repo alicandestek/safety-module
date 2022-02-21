@@ -10,7 +10,7 @@ class layout extends Component {
       <div className="">
         <Header />
         <div className="">{this.props.children}</div>
-        {/* <Footer /> */}
+        <Footer />
       </div>
     );
   }

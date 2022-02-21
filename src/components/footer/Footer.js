@@ -2,11 +2,14 @@ import React from "react";
 
 function Footer() {
   return (
-    <div className="">
+    <div className="h-auto footer-background">
       <div className="container mx-auto flex justify-between p-6 items-center">
         <div>
           <p>
-            Visit <a href="http://">Hyphen</a>
+            Visit{" "}
+            <a href="http://" className="text-[#615CCD]">
+              Hyphen
+            </a>
           </p>
         </div>
         <div className="flex gap-6">
