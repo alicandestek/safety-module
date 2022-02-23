@@ -18,7 +18,12 @@ function Footer() {
           <p>Telegram</p>
         </div>
         <div>
-          <a href="http://" className="primary-color">
+          <a
+            href="https://biconomy.io"
+            target="_blank"
+            className="primary-color"
+            rel="noreferrer"
+          >
             Biconomy.io
           </a>
         </div>
