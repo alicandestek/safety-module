@@ -41,6 +41,7 @@ button {
   background: #d85111;
   border-radius: 10px;
   font-weight: 600;
+  color: #fff;
 }
 
 .btn-claim {
@@ -63,6 +64,12 @@ button {
   box-sizing: border-box;
   border-radius: 10px;
   color: #d85111;
+}
+.btn-balance {
+  background: #000000;
+  border-radius: 10px;
+  font-weight: 600;
+  margin-right: -15px;
 }
 
 .input-bg {
