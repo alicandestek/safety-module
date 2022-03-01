@@ -35,7 +35,6 @@ function WalletConnect() {
     //   await contract.balanceOf((await provider.getSigners())[0].address)
     // ).toString();
     console.log(ethers.utils.formatEther(accountBalance));
-    console.log(data);
   }
 
   return (
