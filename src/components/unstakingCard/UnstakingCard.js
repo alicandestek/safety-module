@@ -5,6 +5,7 @@ import Tooltip from "../tooltip/Tooltip";
 
 function UnstakingCard() {
   const [tokenchange, setTokenChange] = useState(true);
+  const [cooldown, setCooldown] = useState(false);
 
   const [selecttoken, setSelecttoken] = useState(true);
 
@@ -90,7 +91,14 @@ function UnstakingCard() {
             </div>
           </div>
           <div className="flex gap-6">
-            <button className="btn-cooldown py-4 px-12 w-full text-white">
+            <button
+              className={
+                cooldown === false
+                  ? "btn-wallet py-4 px-12 w-full text-white"
+                  : "btn-cooldown py-4 px-12 w-full text-white disable"
+              }
+              onClick={() => setCooldown(true)}
+            >
               Cooldown Activated
             </button>
             <button className="btn-wallet py-4 px-12 w-full text-white">

@@ -1,14 +1,21 @@
 import React, { useState } from "react";
 import WalletIcon from "../../assets/images/wallet.svg";
 import ClaimIcon from "../../assets/images/claim.svg";
+import UnlockModal from "../modals/UnlockModal";
+import StakingAbi from "../../contract/StakingABI.json";
 
 function StakingCard() {
   const [ethchange, setEthhchnage] = useState(false);
   const [selecttoken, setSelecttoken] = useState(true);
 
+  const [modalstate, setModalstate] = useState(false);
+
   const handleTokenChange = (value) => {
     setSelecttoken(value);
   };
+
+  const setDeposit = (value) => {};
+
   return (
     <div>
       <div className="flex justify-center">
@@ -80,23 +87,36 @@ function StakingCard() {
           </div>
           {ethchange ? (
             <div>
-              <button className="btn-wallet py-4 px-12 w-full text-white">
+              <button className="btn-wallet py-4  w-full text-white">
                 Switch To Ethereum
               </button>
             </div>
           ) : (
-            <div className="flex gap-6">
-              <button className="btn-unlock py-4 px-12 w-full text-white">
-                Unlock {selecttoken ? "BICO" : "BBPT"}
-              </button>
-              <button className="btn-wallet py-4 px-12 w-full text-white">
-                Confirm Deposit
-              </button>
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <button
+                  className="btn-unlock py-4 w-full text-white"
+                  onClick={() => {
+                    setModalstate(true);
+                  }}
+                >
+                  Unlock {selecttoken ? "BICO" : "BBPT"}
+                </button>
+              </div>
+              <div>
+                <button className="btn-wallet py-4 px-12 w-full text-white">
+                  Confirm Deposit
+                </button>
+              </div>
+              <UnlockModal
+                modalstate={modalstate}
+                setModalstate={setModalstate}
+              />
             </div>
           )}
         </div>
 
-        <div className="flex justify-between my-6">
+        <div className="flex justify-between">
           <p>Earnings</p>
           <p className="text-sm secondary-color">
             Your total accrued BICO tokens.
