@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Modal from "react-modal";
 import UnlockIcon from "../../assets/images/unlock.svg";
 import { WalletDetail } from "../../contexts/Context.js";
@@ -25,6 +25,8 @@ const customStyles = {
 // eslint-disable-next-line react/prop-types
 function UnlockModal({ modalstate, setModalstate, selecttoken }) {
   const walletDetail = useContext(WalletDetail);
+  const [pending, setpending] = useState(false);
+  const [completed, setcompleted] = useState(false)
   //   console.log(modalstate);
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -45,14 +47,16 @@ function UnlockModal({ modalstate, setModalstate, selecttoken }) {
       StakingAbi,
       signer
     );
+    console.log(contract_write.listeners(), "Hello");
     const tx = await contract_write
       .approve(
         BICOSTAKINGCONTRACT,
         "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
       )
-      .then(() => console.log(tx));
+      setpending(true);
+      const receipt = await tx.wait();
+      setcompleted(true);
 
-    walletDetail.connect.on("pending", () => console.log("ksdhs"));
   };
 
   useEffect(() => {
@@ -97,6 +101,12 @@ function UnlockModal({ modalstate, setModalstate, selecttoken }) {
             Unlock One Time Only
           </button>
         </div>
+        {
+          pending && (<p>Pending</p>)
+        }
+        {
+          completed && (<p>Completed</p>)
+        }
       </Modal>
     </div>
   );
