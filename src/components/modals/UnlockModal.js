@@ -4,7 +4,8 @@ import UnlockIcon from "../../assets/images/unlock.svg";
 import { WalletDetail } from "../../contexts/Context.js";
 import StakingAbi from "../../contract/StakingABI.json";
 import { ethers } from "ethers";
-import { BICOSTAKINGCONTRACT } from "../../config/Confing";
+import { BICOSTAKINGCONTRACT, BICOCONTRACTADDRESS } from "../../config/Confing";
+import { BigNumber } from "ethers";
 
 const customStyles = {
   content: {
@@ -40,17 +41,39 @@ function UnlockModal({ modalstate, setModalstate, selecttoken }) {
   }
 
   const handleApprove = async (value) => {
-    const tokenContractAddress = BICOSTAKINGCONTRACT;
+    const tokenContractAddress = BICOCONTRACTADDRESS;
+    const stakingContractAddress = BICOSTAKINGCONTRACT;
+    
     const signer = walletDetail.connect.getSigner();
-    const contract_write = new ethers.Contract(
+
+    const tokenContract = new ethers.Contract(
       tokenContractAddress,
+      StakingAbi,
+      walletDetail.connect
+    )
+
+    const stakingContractWrite = new ethers.Contract(
+      stakingContractAddress,
       StakingAbi,
       signer
     );
-    console.log(contract_write.listeners(), "Hello");
-    const tx = await contract_write
+
+    let allowed = '';
+
+    tokenContract.allowance(walletDetail.address, stakingContractAddress).then((res) =>{
+      allowed = res;
+    })
+
+    let bal = new BigNumber(ethers.utils.parseEther(walletDetail.balance));
+
+    if(allowed.isLessThan(bal)){
+      
+    }
+    
+
+    const tx = await stakingContractWrite
       .approve(
-        BICOSTAKINGCONTRACT,
+        tokenContractAddress,
         "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
       )
       setpending(true);
@@ -58,6 +81,10 @@ function UnlockModal({ modalstate, setModalstate, selecttoken }) {
       setcompleted(true);
 
   };
+
+  useEffect(() => {
+
+  }, [])
 
   useEffect(() => {
     console.log(walletDetail);

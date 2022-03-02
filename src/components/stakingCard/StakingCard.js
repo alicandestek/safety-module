@@ -24,6 +24,8 @@ function StakingCard({}) {
     console.log(walletDetail);
   }, [walletDetail]);
 
+  
+
   return (
     <div>
       <div className="flex justify-center">
