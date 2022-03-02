@@ -20,7 +20,7 @@ function WalletConnect() {
     walletDetail.setAddress(account[0]);
     walletDetail.setConnect(connect);
     getAddress(account[0], connect);
-    console.log(account[0]);
+    // console.log(account[0]);
     // console.log(walletDetail);
   };
 
@@ -33,14 +33,14 @@ function WalletConnect() {
     );
     // console.log(contract.balanceOf);
     const accountBalance = await contract.balanceOf(address);
-    console.log(accountBalance);
+    // console.log(accountBalance);
     setBalance(ethers.utils.formatEther(accountBalance));
-    console.log(ethers.utils.formatEther(accountBalance));
+    // console.log(ethers.utils.formatEther(accountBalance));
     walletDetail.setBalance(ethers.utils.formatEther(accountBalance));
   }
 
   useEffect(() => {
-    console.log(walletDetail);
+    // console.log(walletDetail);
   }, [walletDetail]);
 
   return (

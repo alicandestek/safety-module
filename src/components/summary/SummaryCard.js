@@ -1,7 +1,37 @@
-import React from "react";
+import React, { useEffect, useContext, useState } from "react";
 import Tooltip from "../tooltip/Tooltip";
+import StakingAbi from "../../contract/StakingABI.json";
+import { ethers } from "ethers";
+import { BICOSTAKINGCONTRACT } from "../../config/Confing";
+import { WalletDetail } from "../../contexts/Context.js";
 
 function SummaryCard() {
+  const walletDetail = useContext(WalletDetail);
+  const [cooldownvalue, setCooldown] = useState();
+  const [totalSupply, setTotalSupply] = useState();
+
+  const getSummaryCardData = async () => {
+    const tokenContractAddress = BICOSTAKINGCONTRACT;
+    //  const signer = walletDetail.connect.getSigner();
+    const contract_write = new ethers.Contract(
+      tokenContractAddress,
+      StakingAbi,
+      walletDetail.connect
+    );
+
+    const cooldown = await contract_write.COOLDOWN_SECONDS();
+    console.log("addsd", cooldown.toString());
+    setCooldown(cooldown.toString());
+
+    const totalSupply = await contract_write.totalSupply();
+    console.log("addsd", totalSupply.toString());
+    setTotalSupply(totalSupply.toString());
+  };
+
+  useEffect(() => {
+    getSummaryCardData();
+  }, [walletDetail.connect]);
+
   return (
     <div className="summary-card p-12">
       <div>
@@ -32,7 +62,9 @@ function SummaryCard() {
             }
           />
         </div>
-        <p className="third-color text-2xl">6,345,306 USD</p>
+        <p className="third-color text-sm">
+          {totalSupply > 0 ? totalSupply + " USD" : "0 USD"}
+        </p>
       </div>
       <div className="my-8">
         <div className="flex gap-2">
@@ -45,7 +77,9 @@ function SummaryCard() {
             }
           />
         </div>
-        <p className="third-color text-2xl">14 days</p>
+        <p className="third-color text-2xl">
+          {cooldownvalue > 0 ? cooldownvalue / 60 + "Minutes" : "0 Minutes"}
+        </p>
       </div>
       <div className="my-8">
         <div className="flex gap-2">

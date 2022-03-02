@@ -2,15 +2,15 @@ import React, { useState, useContext, useEffect } from "react";
 import WalletIcon from "../../assets/images/wallet.svg";
 import ClaimIcon from "../../assets/images/claim.svg";
 import UnlockModal from "../modals/UnlockModal";
-import StakingAbi from "../../contract/StakingABI.json";
-import { ethers } from "ethers";
-import { BICOSTAKINGCONTRACT } from "../../config/Confing";
+// import StakingAbi from "../../contract/StakingABI.json";
+// import { ethers } from "ethers";
+// import { BICOSTAKINGCONTRACT } from "../../config/Confing";
 import { WalletDetail } from "../../contexts/Context.js";
 
-function StakingCard({}) {
-  const [ethchange, setEthhchnage] = useState(false);
-  const [selecttoken, setSelecttoken] = useState(true);
+function StakingCard() {
   const walletDetail = useContext(WalletDetail);
+  // const [ethchange, setEthhchnage] = useState(false);
+  const [selecttoken, setSelecttoken] = useState(true);
 
   const [modalstate, setModalstate] = useState(false);
 
@@ -70,7 +70,7 @@ function StakingCard({}) {
                 <p className="flex text-xs items-center secondary-color">
                   <img src={WalletIcon} className="h-4 pr-1" alt="" />
                   <span className="font-semibold">
-                    {selecttoken ? walletDetail.balance + "BIOC" : "-- BBPT"}
+                    {selecttoken ? walletDetail.balance + "BIOC" : "BBPT"}
                   </span>
                 </p>
               </div>
@@ -92,9 +92,9 @@ function StakingCard({}) {
               />
             </div>
           </div>
-          {ethchange ? (
+          {walletDetail.address === "" ? (
             <div>
-              <button className="btn-wallet py-4 w-full text-white">
+              <button className="btn-wallet py-4 w-full text-white mb-4">
                 Switch To Ethereum
               </button>
             </div>
@@ -134,7 +134,7 @@ function StakingCard({}) {
           <div className="mb-4 lg:mb-0">
             <input
               type="number"
-              className="input-bg py-3 w-full placeholder:text-lg mt-1 md:mb-4"
+              className="input-bg py-3 w-full placeholder:text-lg md:mb-4 lg:mb-0"
               placeholder="0"
             />
           </div>
