@@ -1,7 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Modal from "react-modal";
 import UnlockIcon from "../../assets/images/unlock.svg";
 import { WalletDetail } from "../../contexts/Context.js";
+import StakingAbi from "../../contract/StakingABI.json";
+import { ethers } from "ethers";
+import { BICOSTAKINGCONTRACT } from "../../config/Confing";
 
 const customStyles = {
   content: {
@@ -20,7 +23,7 @@ const customStyles = {
 };
 
 // eslint-disable-next-line react/prop-types
-function UnlockModal({ modalstate, setModalstate }) {
+function UnlockModal({ modalstate, setModalstate, selecttoken }) {
   const walletDetail = useContext(WalletDetail);
   //   console.log(modalstate);
 
@@ -34,6 +37,28 @@ function UnlockModal({ modalstate, setModalstate }) {
     setIsOpen(false);
   }
 
+  const handleApprove = async (value) => {
+    const tokenContractAddress = BICOSTAKINGCONTRACT;
+    const signer = walletDetail.connect.getSigner();
+    const contract_write = new ethers.Contract(
+      tokenContractAddress,
+      StakingAbi,
+      signer
+    );
+    const tx = await contract_write
+      .approve(
+        BICOSTAKINGCONTRACT,
+        "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      )
+      .then(() => console.log(tx));
+
+    walletDetail.connect.on("pending", () => console.log("ksdhs"));
+  };
+
+  useEffect(() => {
+    console.log(walletDetail);
+  }, [walletDetail]);
+
   return (
     <div>
       <Modal
@@ -43,6 +68,7 @@ function UnlockModal({ modalstate, setModalstate }) {
         }}
         style={customStyles}
         contentLabel="Example Modal"
+        ariaHideApp={false}
       >
         <div>
           <p className="font-semibold text-xl flex justify-center gap-2 py-4">
@@ -53,11 +79,18 @@ function UnlockModal({ modalstate, setModalstate }) {
 
         <p className="text-sm text-center py-10 third-color">
           Please grant permission to our<br></br> smart contract to move{" "}
-          <span className="primary-color">{walletDetail.address} BBPT</span>
+          <span className="primary-color">
+            {walletDetail.balance} {selecttoken === true ? "BICO" : "BBPT"}
+          </span>
         </p>
 
         <div className="text-center">
-          <button className="btn-wallet px-8 py-4 text-sm my-2">
+          <button
+            className="btn-wallet px-8 py-4 text-sm my-2"
+            onClick={() => {
+              handleApprove();
+            }}
+          >
             Unlock Permanently
           </button>
           <button className="btn-wallet px-6 py-4 text-sm">

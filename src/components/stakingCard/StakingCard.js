@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import WalletIcon from "../../assets/images/wallet.svg";
 import ClaimIcon from "../../assets/images/claim.svg";
 import UnlockModal from "../modals/UnlockModal";
 import StakingAbi from "../../contract/StakingABI.json";
+import { ethers } from "ethers";
+import { BICOSTAKINGCONTRACT } from "../../config/Confing";
+import { WalletDetail } from "../../contexts/Context.js";
 
-function StakingCard() {
+function StakingCard({}) {
   const [ethchange, setEthhchnage] = useState(false);
   const [selecttoken, setSelecttoken] = useState(true);
+  const walletDetail = useContext(WalletDetail);
 
   const [modalstate, setModalstate] = useState(false);
 
@@ -15,6 +19,10 @@ function StakingCard() {
   };
 
   const setDeposit = (value) => {};
+
+  useEffect(() => {
+    console.log(walletDetail);
+  }, [walletDetail]);
 
   return (
     <div>
@@ -38,7 +46,6 @@ function StakingCard() {
             }
             onClick={() => {
               handleTokenChange(false);
-              console.log("hello");
             }}
           >
             BBPT
@@ -63,7 +70,7 @@ function StakingCard() {
                 <p className="flex text-xs items-center secondary-color">
                   <img src={WalletIcon} className="h-4 pr-1" alt="" />
                   <span className="font-semibold">
-                    {selecttoken ? "-- BICO" : "-- BBPT"}
+                    {selecttoken ? walletDetail.balance + "BIOC" : "-- BBPT"}
                   </span>
                 </p>
               </div>
@@ -111,6 +118,7 @@ function StakingCard() {
               <UnlockModal
                 modalstate={modalstate}
                 setModalstate={setModalstate}
+                selecttoken={selecttoken}
               />
             </div>
           )}

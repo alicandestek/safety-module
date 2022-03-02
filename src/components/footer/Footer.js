@@ -1,4 +1,5 @@
 import React from "react";
+import WalletConnect from "../walletConnect/WalletConnect";
 
 function Footer() {
   return (
@@ -7,7 +8,12 @@ function Footer() {
         <div className="lg:block hidden">
           <p>
             Visit{" "}
-            <a href="http://" className="text-[#615CCD]">
+            <a
+              href="https://hyphen.biconomy.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#615CCD]"
+            >
               Hyphen
             </a>
           </p>
@@ -27,6 +33,9 @@ function Footer() {
             Biconomy.io
           </a>
         </div>
+      </div>
+      <div className="text-center lg:hidden block">
+        <WalletConnect />
       </div>
     </div>
   );
