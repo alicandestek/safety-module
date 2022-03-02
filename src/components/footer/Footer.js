@@ -4,7 +4,7 @@ function Footer() {
   return (
     <div className="h-auto footer-background">
       <div className="container mx-auto flex justify-between p-6 items-center">
-        <div>
+        <div className="lg:block hidden">
           <p>
             Visit{" "}
             <a href="http://" className="text-[#615CCD]">
@@ -17,7 +17,7 @@ function Footer() {
           <p>Discord</p>
           <p>Telegram</p>
         </div>
-        <div>
+        <div className="lg:block hidden">
           <a
             href="https://biconomy.io"
             target="_blank"

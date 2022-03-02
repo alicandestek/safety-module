@@ -38,7 +38,7 @@ function WalletConnect() {
   }
 
   return (
-    <div>
+    <div className="">
       {walletaddr && iswalletconnected !== undefined ? (
         <div className="flex">
           <button className="btn-balance px-4 py-1 text-sm text-white flex items-center">

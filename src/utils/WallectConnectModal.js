@@ -1,7 +1,6 @@
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import Web3 from "web3";
 import Web3Modal from "web3modal";
-// import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 
 // In my BRAVE the modal is not showing up
@@ -47,7 +46,7 @@ const ConnectWeb3 = async () => {
   var instance;
   const connection = await web3Modal.connect();
   const provider = new ethers.providers.Web3Provider(window.ethereum);
-  console.log(provider);
+  // console.log(provider);
 
   instance = new Web3(provider);
 

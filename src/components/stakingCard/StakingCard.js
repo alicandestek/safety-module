@@ -56,7 +56,7 @@ function StakingCard() {
               </span>
             </a>
           </div>
-          <div className="grid grid-cols-2 my-6 gap-6 items-center">
+          <div className="lg:grid lg:grid-cols-2 lg:my-6 lg:gap-6 lg:items-center mt-12 ">
             <div className="relative">
               <div className="flex justify-between px-2 pb-2 items-center">
                 <p className="text-xs uppercase font-semibold">Amount</p>
@@ -74,26 +74,26 @@ function StakingCard() {
               />
               <button className="btn-tiny">Max</button>
             </div>
-            <div>
+            <div className="lg:my-0 my-6">
               <p className="uppercase text-xs px-2 pb-2 font-semibold">
                 Currently Staked {selecttoken ? "BICO" : "BBPT"}
               </p>
               <input
                 type="number"
-                className="input-bg py-3 w-full mt-1  placeholder:text-lg"
+                className="input-bg py-3 w-full mt-1 placeholder:text-lg"
                 placeholder="0"
               />
             </div>
           </div>
           {ethchange ? (
             <div>
-              <button className="btn-wallet py-4  w-full text-white">
+              <button className="btn-wallet py-4 w-full text-white">
                 Switch To Ethereum
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-2 gap-6">
-              <div>
+            <div className="lg:grid lg:grid-cols-2 lg:gap-6 ">
+              <div className="lg:mb-0 mb-4">
                 <button
                   className="btn-unlock py-4 w-full text-white"
                   onClick={() => {
@@ -116,17 +116,17 @@ function StakingCard() {
           )}
         </div>
 
-        <div className="flex justify-between">
+        <div className="flex justify-between lg:mt-0 mt-4">
           <p>Earnings</p>
-          <p className="text-sm secondary-color">
+          <p className="text-sm secondary-color lg:block hidden">
             Your total accrued BICO tokens.
           </p>
         </div>
-        <div className="grid grid-cols-2 my-6 gap-6 items-center">
-          <div>
+        <div className="lg:grid lg:grid-cols-2 my-6 gap-6 items-center">
+          <div className="mb-4 lg:mb-0">
             <input
               type="number"
-              className="input-bg py-3 w-full placeholder:text-lg mt-1"
+              className="input-bg py-3 w-full placeholder:text-lg mt-1 md:mb-4"
               placeholder="0"
             />
           </div>
@@ -137,7 +137,7 @@ function StakingCard() {
           </div>
         </div>
 
-        <div className="my-16">
+        <div className="lg:my-16 md:my-12">
           <p className="secondary-color text-sm ">
             Biconomy Stakers receive protocol incentives in the form of BICO
             tokens in exchange for taking the risk of securing the protocol. In

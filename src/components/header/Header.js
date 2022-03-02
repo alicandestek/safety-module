@@ -6,9 +6,9 @@ import { NavLink } from "react-router-dom";
 function Header() {
   return (
     <>
-      <div className="flex container mx-auto justify-between my-4">
+      <div className="flex lg:container lg:mx-auto justify-between my-4 mx-6">
         <div>
-          <img src={Logo} alt="" className="h-6" />
+          <img src={Logo} alt="" className="lg:h-6 h-4" />
         </div>
         <div className="menu flex">
           <NavLink
@@ -24,7 +24,7 @@ function Header() {
             Unstake
           </NavLink>
         </div>
-        <div>
+        <div className="lg:block hidden">
           <WalletConnect />
         </div>
       </div>
