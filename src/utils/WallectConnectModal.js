@@ -25,13 +25,6 @@ const getWeb3Modal = () => {
     // network: "mainnet", // optional
     cacheProvider: false, // optional
     providerOptions, // required
-    // theme: {
-    //     background: "rgb(39, 49, 56)",
-    //     main: "rgb(199, 199, 199)",
-    //     secondary: "rgb(136, 136, 136)",
-    //     border: "rgba(195, 195, 195, 0.14)",
-    //     hover: "rgb(16, 26, 32)"
-    // },
     theme: "dark",
     disableInjectedProvider: false, // Forcing it to false becuase sometimes prevents the modal to show up
   });

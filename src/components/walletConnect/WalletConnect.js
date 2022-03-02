@@ -11,15 +11,11 @@ function WalletConnect() {
   const [balance, setBalance] = useState(0);
 
   const HandleConnect = async () => {
-    console.log("Made it to HandleConnect");
     const connect = await connectWeb3();
-    console.log(connect);
-    window.ethereum
-      .request({ method: "eth_requestAccounts" })
-      .then((result) => {
-        setWalletAddress(result[0]);
-        getAddress(result[0], connect);
-      });
+    // console.log(connect);
+    const account = await connect.listAccounts();
+    setWalletAddress(account[0]);
+    getAddress(account[0], connect);
   };
 
   async function getAddress(address, provider) {
@@ -29,13 +25,9 @@ function WalletConnect() {
       StakingAbi,
       provider
     );
-    // const accountBalance = await provider.getBalance(address);
 
     const accountBalance = (await contract.balanceOf(address)).toString();
     setBalance(ethers.utils.formatEther(accountBalance));
-
-    // console.log(ethers.utils.formatEther(accountBalance));
-    // console.log(ethers.utils.formatEther(data));
   }
 
   return (
