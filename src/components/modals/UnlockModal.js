@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import Modal from "react-modal";
 import UnlockIcon from "../../assets/images/unlock.svg";
+import { WalletDetail } from "../../contexts/Context.js";
 
 const customStyles = {
   content: {
@@ -20,6 +21,7 @@ const customStyles = {
 
 // eslint-disable-next-line react/prop-types
 function UnlockModal({ modalstate, setModalstate }) {
+  const walletDetail = useContext(WalletDetail);
   //   console.log(modalstate);
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -51,7 +53,7 @@ function UnlockModal({ modalstate, setModalstate }) {
 
         <p className="text-sm text-center py-10 third-color">
           Please grant permission to our<br></br> smart contract to move{" "}
-          <span className="primary-color">45.9 BBPT</span>
+          <span className="primary-color">{walletDetail.address} BBPT</span>
         </p>
 
         <div className="text-center">

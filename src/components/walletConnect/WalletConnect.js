@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import connectWeb3 from "../../utils/WallectConnectModal";
 import BiconomyIcon from "../../assets/images/bico.svg";
 import { ethers } from "ethers";
 import { BICOCONTRACTADDRESS } from "../../config/Confing";
 import StakingAbi from "../../contract/StakingABI.json";
+import { WalletDetail } from "../../contexts/Context.js";
 
 function WalletConnect() {
+  const walletDetail = useContext(WalletDetail);
   const [walletaddr, setWalletAddress] = useState();
   const [iswalletconnected, setIsWalletConnected] = useState(false);
   const [balance, setBalance] = useState(0);
@@ -15,7 +17,11 @@ function WalletConnect() {
     // console.log(connect);
     const account = await connect.listAccounts();
     setWalletAddress(account[0]);
+    walletDetail.setAddress(account[0]);
+    walletDetail.setConnect(connect);
     getAddress(account[0], connect);
+    console.log(account[0]);
+    // console.log(walletDetail);
   };
 
   async function getAddress(address, provider) {
@@ -25,10 +31,17 @@ function WalletConnect() {
       StakingAbi,
       provider
     );
-
-    const accountBalance = (await contract.balanceOf(address)).toString();
+    // console.log(contract.balanceOf);
+    const accountBalance = await contract.balanceOf(address);
+    console.log(accountBalance);
     setBalance(ethers.utils.formatEther(accountBalance));
+    console.log(ethers.utils.formatEther(accountBalance));
+    walletDetail.setBalance(ethers.utils.formatEther(accountBalance));
   }
+
+  useEffect(() => {
+    console.log(walletDetail);
+  }, [walletDetail]);
 
   return (
     <div className="">
