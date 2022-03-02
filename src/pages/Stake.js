@@ -20,7 +20,7 @@ function Stake() {
             the protocol.
           </p>
         </div>
-        <div className="lg:grid lg:grid-cols-6 lg:mx-56 lg:gap-4 lg:my-12 md:flex md:mx-0 md:gap-o md:my-0">
+        <div className="lg:grid lg:grid-cols-6 lg:mx-56 lg:gap-4 lg:my-12 md:flex">
           <div className="col-span-4 mx-4">
             <StakingCard />
           </div>

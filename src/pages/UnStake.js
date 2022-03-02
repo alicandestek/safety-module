@@ -7,7 +7,7 @@ function Stake() {
   return (
     <Layout>
       <div className="main-background">
-        <div className="text-center mt-28 ">
+        <div className="text-center lg:mt-28 lg:text-base lg:mx-0 mx-6 text-sm my-16">
           <p>
             Stakers on{" "}
             <a
@@ -20,11 +20,11 @@ function Stake() {
             the protocol.
           </p>
         </div>
-        <div className="grid grid-cols-6 mx-56 gap-4 my-12">
+        <div className="lg:grid lg:grid-cols-6 lg:mx-56 lg:gap-4 lg:my-12 md:flex">
           <div className="col-span-4">
             <UnstakingCard />
           </div>
-          <div className="mt-8">
+          <div className="lg:mt-8">
             <SummaryCard />
           </div>
         </div>

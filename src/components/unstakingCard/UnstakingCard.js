@@ -19,7 +19,6 @@ function UnstakingCard() {
     setCompleted();
   }, []);
 
-  const data = [{ tooltipdata: "dataajsdh" }];
   return (
     <div>
       <div className="flex justify-center">
@@ -53,14 +52,8 @@ function UnstakingCard() {
         <div>
           <div className="flex justify-between">
             <p>Unstaking</p>
-            {/* <a href="#" className="">
-              🤔{" "}
-              <span className="underline underline-offset-4">
-                How does it work?
-              </span>
-            </a> */}
           </div>
-          <div className="grid grid-cols-2 my-6 gap-6 items-center">
+          <div className="lg:grid lg:grid-cols-2 lg:my-6 lg:gap-6 lg:items-center mt-12">
             <div className="relative">
               <div className="flex justify-between px-2 pb-2 items-center">
                 <lable className="text-xs uppercase font-semibold">
@@ -90,20 +83,24 @@ function UnstakingCard() {
               />
             </div>
           </div>
-          <div className="flex gap-6">
-            <button
-              className={
-                cooldown === false
-                  ? "btn-wallet py-4 px-12 w-full text-white"
-                  : "btn-cooldown py-4 px-12 w-full text-white disable"
-              }
-              onClick={() => setCooldown(true)}
-            >
-              Cooldown Activated
-            </button>
-            <button className="btn-wallet py-4 px-12 w-full text-white">
-              Confirm Withdrawal
-            </button>
+          <div className="lg:grid lg:grid-cols-2 lg:gap-6">
+            <div>
+              <button
+                className={
+                  cooldown === false
+                    ? "btn-wallet py-4 px-12 w-full text-white lg:my-0 my-4"
+                    : "btn-cooldown py-4 px-12 w-full text-white disable"
+                }
+                onClick={() => setCooldown(true)}
+              >
+                Cooldown Activated
+              </button>
+            </div>
+            <div>
+              <button className="btn-wallet py-4 px-12 w-full text-white">
+                Confirm Withdrawal
+              </button>
+            </div>
           </div>
           <div className="my-4">
             <ProgressBar bgcolor={"#00D28F"} completed={completed} />
@@ -122,15 +119,15 @@ function UnstakingCard() {
 
         <div className="flex justify-between my-6">
           <p>Earnings</p>
-          <p className="text-sm secondary-color">
+          <p className="text-sm secondary-color lg:block hidden ">
             Your total accrued BICO tokens.
           </p>
         </div>
-        <div className="grid grid-cols-2 my-6 gap-6 items-center">
+        <div className="lg:grid lg:grid-cols-2 my-6 gap-6 items-center">
           <div>
             <input
               type="number"
-              className="input-bg py-3 w-full placeholder:text-lg mt-1"
+              className="input-bg py-3 w-full placeholder:text-lg mt-1 lg:mb-0 mb-4"
               placeholder="0"
             />
           </div>
@@ -141,7 +138,7 @@ function UnstakingCard() {
           </div>
         </div>
 
-        <div className="my-16">
+        <div className="lg:my-16 md:my-12">
           <p className="secondary-color text-sm ">
             Biconomy Stakers receive protocol incentives in the form of BICO
             tokens in exchange for taking the risk of securing the protocol. In
