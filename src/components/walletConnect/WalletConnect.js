@@ -36,7 +36,8 @@ function WalletConnect() {
     console.log(accountBalance);
     setBalance(ethers.utils.formatEther(accountBalance));
     console.log(ethers.utils.formatEther(accountBalance));
-    walletDetail.setBalance(ethers.utils.formatEther(accountBalance));
+    walletDetail.setBalance(accountBalance);
+    // walletDetail.setBalance(ethers.utils.formatEther(accountBalance));
   }
 
   useEffect(() => {
