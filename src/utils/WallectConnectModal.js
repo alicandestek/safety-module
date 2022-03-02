@@ -13,7 +13,7 @@ const getWeb3Modal = () => {
     walletconnect: {
       package: WalletConnectProvider,
       options: {
-        infuraId: process.env.REACT_APP_INFURA_ID,
+        infuraId: "27e484dcd9e3efcfd25a83a78777cdf1",
       },
       display: {
         description: "Scan with a wallet to connect",
@@ -42,17 +42,13 @@ const getWeb3Modal = () => {
 // Will have to write some logic to know that if the wallet is connected or not
 const ConnectWeb3 = async () => {
   const web3Modal = await getWeb3Modal();
-
   var instance;
   const connection = await web3Modal.connect();
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const provider = new ethers.providers.Web3Provider(connection);
   // console.log(provider);
-
   instance = new Web3(provider);
 
-  return instance;
+  return provider;
 };
 
 export default ConnectWeb3;
-
-export const provider = new ethers.providers.Web3Provider(window.ethereum);
