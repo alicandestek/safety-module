@@ -138,20 +138,6 @@ function UnlockModal({ modalstate, setModalstate, selecttoken, inputAmount }) {
   useEffect(() => {
     if (walletDetail.connect) {
       checkAllowance();
-
-      //   console.log(inputAmount, typeof inputAmount);
-
-      //   if(allowed){
-      //     allowed = BigNumber.from(allowed.toString());
-      //   }
-
-      // let req = ethers.utils.parseEther(inputAmount.toString());
-
-      // if (allowed.isLessThan(req)) {
-      //   console.log("not enough");
-      // }else {
-      //   console.log("enough");
-      // }
     }
   }, [walletDetail.connect]);
 

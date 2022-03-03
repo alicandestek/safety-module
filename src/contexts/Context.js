@@ -7,6 +7,7 @@ export default function WalletDetailProvider(props) {
   const [address, setAddress] = useState("");
   const [balance, setBalance] = useState("");
   const [connect, setConnect] = useState("");
+  const [rewards, setrewards] = useState(0);
 
   return (
     <>
@@ -18,6 +19,8 @@ export default function WalletDetailProvider(props) {
           setBalance,
           connect,
           setConnect,
+          rewards,
+          setrewards,
         }}
       >
         {props.children}

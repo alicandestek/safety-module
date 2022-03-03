@@ -2,9 +2,9 @@ import React, { useState, useContext, useEffect } from "react";
 import WalletIcon from "../../assets/images/wallet.svg";
 import ClaimIcon from "../../assets/images/claim.svg";
 import UnlockModal from "../modals/UnlockModal";
-// import StakingAbi from "../../contract/StakingABI.json";
+import StakingAbi from "../../contract/StakingABI.json";
 import { ethers } from "ethers";
-// import { BICOSTAKINGCONTRACT } from "../../config/Confing";
+import { BICOSTAKINGCONTRACT } from "../../config/Confing";
 import { WalletDetail } from "../../contexts/Context.js";
 
 function StakingCard() {
@@ -13,6 +13,8 @@ function StakingCard() {
   const [selecttoken, setSelecttoken] = useState(true);
   const [dispBalance, setDispBalance] = useState(0);
   const [inputAmount, setinputAmount] = useState(0);
+  const [depositAmount, setdepositAmount] = useState(0);
+  const [stakedAmountDisp, setstakedAmountDisp] = useState(0)
 
   const [modalstate, setModalstate] = useState(false);
 
@@ -27,11 +29,40 @@ function StakingCard() {
     }
   }, [walletDetail.balance]);
 
-  const setDeposit = (value) => {};
+  const handleDeposit = async () => {
+    const stakingContractAddress = BICOSTAKINGCONTRACT;
+
+    const signer = walletDetail.connect.getSigner();
+
+    const stakingContractWrite = new ethers.Contract(
+      stakingContractAddress,
+      StakingAbi,
+      signer
+    );
+
+    console.log(stakingContractWrite);
+
+    const tx = await stakingContractWrite.stake(
+      walletDetail.address,
+      ethers.utils.parseEther(depositAmount)
+    );
+    
+    const receipt = await tx.wait();
+   
+    console.log(receipt);
+  }
 
   useEffect(() => {
     console.log(walletDetail);
   }, [walletDetail]);
+
+  useEffect(() => {
+    if (walletDetail.rewards) {
+      let b = ethers.utils.formatEther(walletDetail.rewards);
+      setstakedAmountDisp(b);
+    }
+  
+  }, [walletDetail.rewards])
 
   return (
     <div>
@@ -107,6 +138,8 @@ function StakingCard() {
                 type="number"
                 className="input-bg py-3 w-full mt-1 placeholder:text-lg"
                 placeholder="0"
+                value={depositAmount}
+                onChange={(e) => setdepositAmount(e.target.value)}
               />
             </div>
           </div>
@@ -129,7 +162,11 @@ function StakingCard() {
                 </button>
               </div>
               <div>
-                <button className="btn-wallet py-4 px-12 w-full text-white">
+                <button className="btn-wallet py-4 px-12 w-full text-white"
+                  onClick={() => {
+                    handleDeposit();
+                  }}
+                >
                   Confirm Deposit
                 </button>
               </div>
@@ -155,6 +192,8 @@ function StakingCard() {
               type="number"
               className="input-bg py-3 w-full placeholder:text-lg md:mb-4 lg:mb-0"
               placeholder="0"
+              value={stakedAmountDisp}
+              disabled
             />
           </div>
           <div className="">

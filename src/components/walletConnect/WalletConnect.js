@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import connectWeb3 from "../../utils/WallectConnectModal";
 import BiconomyIcon from "../../assets/images/bico.svg";
 import { ethers } from "ethers";
-import { BICOCONTRACTADDRESS } from "../../config/Confing";
+import { BICOCONTRACTADDRESS, BICOSTAKINGCONTRACT } from "../../config/Confing";
 import StakingAbi from "../../contract/StakingABI.json";
 import { WalletDetail } from "../../contexts/Context.js";
 
@@ -37,6 +37,19 @@ function WalletConnect() {
     setBalance(ethers.utils.formatEther(accountBalance));
     console.log(ethers.utils.formatEther(accountBalance));
     walletDetail.setBalance(accountBalance);
+
+    const stakingContractAddress = BICOSTAKINGCONTRACT;
+    const stakingContract = new ethers.Contract(
+      stakingContractAddress,
+      StakingAbi,
+      provider
+    )
+
+    const stakingBalance = await stakingContract.balanceOf(address);
+
+    walletDetail.setrewards(stakingBalance);
+    console.log(ethers.utils.formatEther(stakingBalance));
+
     // walletDetail.setBalance(ethers.utils.formatEther(accountBalance));
   }
 
