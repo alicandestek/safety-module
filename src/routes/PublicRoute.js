@@ -11,7 +11,10 @@ function PublicRoute() {
   const walletDetail = useContext(WalletDetail);
   const [loadstate, setLoadstate] = useState(false);
   const [storedata, setStoredata] = useState(walletDetail);
+  /*
+  testing code 
 
+  
   useEffect(() => {
     console.log(storedata);
     window.onbeforeunload = () => {
@@ -41,6 +44,8 @@ function PublicRoute() {
       }
     }
   }, [loadstate]);
+
+*/
 
   return (
     <BrowserRouter>
