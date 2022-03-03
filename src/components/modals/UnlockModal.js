@@ -4,7 +4,8 @@ import UnlockIcon from "../../assets/images/unlock.svg";
 import { WalletDetail } from "../../contexts/Context.js";
 import StakingAbi from "../../contract/StakingABI.json";
 import { ethers } from "ethers";
-import { BICOSTAKINGCONTRACT } from "../../config/Confing";
+import { BICOSTAKINGCONTRACT, BICOCONTRACTADDRESS } from "../../config/Confing";
+import { BigNumber } from "ethers";
 
 const customStyles = {
   content: {
@@ -22,10 +23,18 @@ const customStyles = {
 };
 
 // eslint-disable-next-line react/prop-types
-function UnlockModal({ modalstate, setModalstate, selecttoken }) {
+function UnlockModal({ modalstate, setModalstate, selecttoken, inputAmount }) {
   const walletDetail = useContext(WalletDetail);
   const [pending, setpending] = useState(false);
   const [completed, setcompleted] = useState(false);
+  const [dispBalance, setDispBalance] = useState(0);
+
+  useEffect(() => {
+    if (walletDetail.balance) {
+      let b = ethers.utils.formatEther(walletDetail.balance);
+      setDispBalance(b);
+    }
+  }, [walletDetail.balance]);
   //   console.log(modalstate);
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -38,17 +47,26 @@ function UnlockModal({ modalstate, setModalstate, selecttoken }) {
     setIsOpen(false);
   }
 
-  const handleApprove = async (value) => {
-    const tokenContractAddress = BICOSTAKINGCONTRACT;
+  const handleApproveInf = async (value) => {
+    const tokenContractAddress = BICOCONTRACTADDRESS;
+    const stakingContractAddress = BICOSTAKINGCONTRACT;
+
     const signer = walletDetail.connect.getSigner();
-    const contract_write = new ethers.Contract(
+
+    const tokenContract = new ethers.Contract(
+      tokenContractAddress,
+      StakingAbi,
+      walletDetail.connect
+    );
+
+    const tokenContractWrite = new ethers.Contract(
       tokenContractAddress,
       StakingAbi,
       signer
     );
-    // console.log(contract_write.listeners(), "Hello");
-    const tx = await contract_write.approve(
-      BICOSTAKINGCONTRACT,
+
+    const tx = await tokenContractWrite.approve(
+      stakingContractAddress,
       "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
     );
     setpending(true);
@@ -56,7 +74,90 @@ function UnlockModal({ modalstate, setModalstate, selecttoken }) {
     setcompleted(true);
   };
 
-  useEffect(() => {}, [walletDetail]);
+  const handleApproveOneTime = async () => {
+    const tokenContractAddress = BICOCONTRACTADDRESS;
+    const stakingContractAddress = BICOSTAKINGCONTRACT;
+
+    const signer = walletDetail.connect.getSigner();
+
+    const tokenContract = new ethers.Contract(
+      tokenContractAddress,
+      StakingAbi,
+      walletDetail.connect
+    );
+
+    const tokenContractWrite = new ethers.Contract(
+      tokenContractAddress,
+      StakingAbi,
+      signer
+    );
+    const tx = await tokenContractWrite.approve(
+      stakingContractAddress,
+      ethers.utils.parseEther(inputAmount)
+    );
+    setpending(true);
+    const receipt = await tx.wait();
+    setcompleted(true);
+  };
+
+  const checkAllowance = async () => {
+    const tokenContractAddress = BICOCONTRACTADDRESS;
+    const stakingContractAddress = BICOSTAKINGCONTRACT;
+
+    // const signer = walletDetail.connect.getSigner();
+
+    const tokenContract = new ethers.Contract(
+      tokenContractAddress,
+      StakingAbi,
+      walletDetail.connect
+    );
+
+    console.log(tokenContract);
+
+    let allowed = await tokenContract.allowance(
+      walletDetail.address,
+      stakingContractAddress
+    );
+
+    console.log(allowed.toString());
+    // If allowed is greater than input than no need to ask for approval
+    let req = ethers.utils.parseEther(inputAmount.toString());
+    if (allowed.lte(req)) {
+      console.log("not enough");
+      // setDispBalance(ethers.utils.formatEther(req.sub(allowed)));
+    } else {
+      console.log("enough");
+      setcompleted(true);
+    }
+  };
+
+  useEffect(() => {
+    checkAllowance();
+  }, [inputAmount]);
+
+  useEffect(() => {
+    if (walletDetail.connect) {
+      checkAllowance();
+
+      //   console.log(inputAmount, typeof inputAmount);
+
+      //   if(allowed){
+      //     allowed = BigNumber.from(allowed.toString());
+      //   }
+
+      // let req = ethers.utils.parseEther(inputAmount.toString());
+
+      // if (allowed.isLessThan(req)) {
+      //   console.log("not enough");
+      // }else {
+      //   console.log("enough");
+      // }
+    }
+  }, [walletDetail.connect]);
+
+  useEffect(() => {
+    console.log(walletDetail);
+  }, [walletDetail]);
 
   return (
     <div>
@@ -120,24 +221,56 @@ function UnlockModal({ modalstate, setModalstate, selecttoken }) {
             <p className="text-sm text-center py-10 third-color">
               Please grant permission to our<br></br> smart contract to move{" "}
               <span className="primary-color">
-                {walletDetail.balance} {selecttoken === true ? "BICO" : "BBPT"}
+                {inputAmount} {selecttoken === true ? "BICO" : "BBPT"}
               </span>
             </p>
             <div className="text-center">
               <button
                 className="btn-wallet px-8 py-4 text-sm my-2"
                 onClick={() => {
-                  handleApprove();
+                  handleApproveInf();
                 }}
               >
                 Unlock Permanently
               </button>
-              <button className="btn-wallet px-6 py-4 text-sm">
+              <button
+                className="btn-wallet px-6 py-4 text-sm"
+                onClick={() => {
+                  handleApproveOneTime();
+                }}
+              >
                 Unlock One Time Only
               </button>
             </div>
           </div>
         )}
+
+        {/* <p className="text-sm text-center py-10 third-color">
+          Please grant permission to our<br></br> smart contract to move{" "}
+          <span className="primary-color">
+            {inputAmount} {selecttoken === true ? "BICO" : "BBPT"}
+          </span>
+        </p>
+
+        <div className="text-center">
+          <button
+            className="btn-wallet px-8 py-4 text-sm my-2"
+            onClick={() => {
+              handleApproveInf();
+            }}
+          >
+            Unlock Permanently
+          </button>
+          <button className="btn-wallet px-6 py-4 text-sm"
+            onClick={() => {
+              handleApproveOneTime();
+            }}
+          >
+            Unlock One Time Only
+          </button>
+        </div>
+        {pending && <p>Pending</p>}
+        {completed && <p>Completed</p>} */}
       </Modal>
     </div>
   );

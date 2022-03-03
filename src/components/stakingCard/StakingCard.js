@@ -3,7 +3,7 @@ import WalletIcon from "../../assets/images/wallet.svg";
 import ClaimIcon from "../../assets/images/claim.svg";
 import UnlockModal from "../modals/UnlockModal";
 // import StakingAbi from "../../contract/StakingABI.json";
-// import { ethers } from "ethers";
+import { ethers } from "ethers";
 // import { BICOSTAKINGCONTRACT } from "../../config/Confing";
 import { WalletDetail } from "../../contexts/Context.js";
 
@@ -11,12 +11,21 @@ function StakingCard() {
   const walletDetail = useContext(WalletDetail);
   // const [ethchange, setEthhchnage] = useState(false);
   const [selecttoken, setSelecttoken] = useState(true);
+  const [dispBalance, setDispBalance] = useState(0);
+  const [inputAmount, setinputAmount] = useState(0);
 
   const [modalstate, setModalstate] = useState(false);
 
   const handleTokenChange = (value) => {
     setSelecttoken(value);
   };
+
+  useEffect(() => {
+    if (walletDetail.balance) {
+      let b = ethers.utils.formatEther(walletDetail.balance);
+      setDispBalance(b);
+    }
+  }, [walletDetail.balance]);
 
   const setDeposit = (value) => {};
 
@@ -70,7 +79,7 @@ function StakingCard() {
                 <p className="flex text-xs items-center secondary-color">
                   <img src={WalletIcon} className="h-4 pr-1" alt="" />
                   <span className="font-semibold">
-                    {selecttoken ? walletDetail.balance + "BIOC" : "BBPT"}
+                    {selecttoken ? dispBalance + "BIOC" : "-- BBPT"}
                   </span>
                 </p>
               </div>
@@ -78,8 +87,17 @@ function StakingCard() {
                 type="number"
                 className="bg-white border rounded-xl border-slate-400 py-3 w-full placeholder:text-lg"
                 placeholder="0"
+                onChange={(e) => setinputAmount(e.target.value)}
+                value={inputAmount}
               />
-              <button className="btn-tiny">Max</button>
+              <button
+                className="btn-tiny"
+                onClick={() => {
+                  setinputAmount(dispBalance);
+                }}
+              >
+                Max
+              </button>
             </div>
             <div className="lg:my-0 my-6">
               <p className="uppercase text-xs px-2 pb-2 font-semibold">
@@ -119,6 +137,7 @@ function StakingCard() {
                 modalstate={modalstate}
                 setModalstate={setModalstate}
                 selecttoken={selecttoken}
+                inputAmount={inputAmount}
               />
             </div>
           )}
